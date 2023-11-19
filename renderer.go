@@ -11,11 +11,6 @@ import (
 	"unicode"
 
 	text "github.com/MichaelMure/go-term-text"
-	"github.com/alecthomas/chroma"
-	"github.com/alecthomas/chroma/formatters"
-	"github.com/alecthomas/chroma/lexers"
-	"github.com/alecthomas/chroma/styles"
-	"github.com/fatih/color"
 	md "github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/ast"
 	"golang.org/x/net/html"
@@ -441,46 +436,7 @@ func (r *renderer) renderHeading(w io.Writer, level int) {
 
 func (r *renderer) renderCodeBlock(w io.Writer, node *ast.CodeBlock) {
 	code := string(node.Literal)
-	var lexer chroma.Lexer
-	// try to get the lexer from the language tag if any
-	if len(node.Info) > 0 {
-		lexer = lexers.Get(string(node.Info))
-	}
-	// fallback on detection
-	if lexer == nil {
-		lexer = lexers.Analyse(code)
-	}
-	// all failed :-(
-	if lexer == nil {
-		lexer = lexers.Fallback
-	}
-	// simplify the lexer output
-	lexer = chroma.Coalesce(lexer)
-
-	var formatter chroma.Formatter
-	if color.NoColor {
-		formatter = formatters.Fallback
-	} else {
-		formatter = formatters.TTY8
-	}
-
-	iterator, err := lexer.Tokenise(nil, code)
-	if err != nil {
-		// Something failed, falling back to no highlight render
-		r.renderFormattedCodeBlock(w, code)
-		return
-	}
-
-	buf := &bytes.Buffer{}
-
-	err = formatter.Format(buf, styles.Pygments, iterator)
-	if err != nil {
-		// Something failed, falling back to no highlight render
-		r.renderFormattedCodeBlock(w, code)
-		return
-	}
-
-	r.renderFormattedCodeBlock(w, buf.String())
+	r.renderFormattedCodeBlock(w, code)
 }
 
 func (r *renderer) renderFormattedCodeBlock(w io.Writer, code string) {
