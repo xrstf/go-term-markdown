@@ -21,7 +21,6 @@ import (
 	"github.com/fatih/color"
 	md "github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/ast"
-	"github.com/kyokomi/emoji/v2"
 	"golang.org/x/net/html"
 
 	htmlWalker "go.xrstf.de/xrstf/go-term-markdown/html"
@@ -352,9 +351,7 @@ func (r *renderer) RenderNode(w io.Writer, node ast.Node, entering bool) ast.Wal
 		if shouldCleanText(node) {
 			content = removeLineBreak(content)
 		}
-		// emoji support !
-		emojed := emoji.Sprint(content)
-		r.inlineAccumulator.WriteString(emojed)
+		r.inlineAccumulator.WriteString(content)
 
 	case *ast.HTMLBlock:
 		r.renderHTMLBlock(w, node)
