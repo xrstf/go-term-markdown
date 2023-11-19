@@ -1,10 +1,10 @@
 # go-term-markdown
 
 [![Build Status](https://travis-ci.com/MichaelMure/go-term-markdown.svg?branch=master)](https://travis-ci.com/MichaelMure/go-term-markdown)
-[![GoDoc](https://godoc.org/go.xrstf.de/xrstf/go-term-markdown?status.svg)](https://godoc.org/go.xrstf.de/xrstf/go-term-markdown)
-[![Go Report Card](https://goreportcard.com/badge/go.xrstf.de/xrstf/go-term-markdown)](https://goreportcard.com/report/go.xrstf.de/xrstf/go-term-markdown)
+[![GoDoc](https://godoc.org/go.xrstf.de/go-term-markdown?status.svg)](https://godoc.org/go.xrstf.de/go-term-markdown)
+[![Go Report Card](https://goreportcard.com/badge/go.xrstf.de/go-term-markdown)](https://goreportcard.com/report/go.xrstf.de/go-term-markdown)
 [![codecov](https://codecov.io/gh/MichaelMure/go-term-markdown/branch/master/graph/badge.svg)](https://codecov.io/gh/MichaelMure/go-term-markdown)
-[![GitHub license](https://img.shields.io/github/license/MichaelMure/go-term-markdown.svg)](https://go.xrstf.de/xrstf/go-term-markdown/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/MichaelMure/go-term-markdown.svg)](https://go.xrstf.de/go-term-markdown/blob/master/LICENSE)
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/the-git-bug/Lobby)
 
 `go-term-markdown` is a go package implementing a Markdown renderer for the terminal.
@@ -28,7 +28,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	markdown "go.xrstf.de/xrstf/go-term-markdown"
+	markdown "go.xrstf.de/go-term-markdown"
 )
 
 func main() {

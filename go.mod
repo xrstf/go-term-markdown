@@ -1,4 +1,4 @@
-module go.xrstf.de/xrstf/go-term-markdown
+module go.xrstf.de/go-term-markdown
 
 go 1.17
 

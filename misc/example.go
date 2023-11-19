@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	markdown "go.xrstf.de/xrstf/go-term-markdown"
+	markdown "go.xrstf.de/go-term-markdown"
 )
 
 func main() {
