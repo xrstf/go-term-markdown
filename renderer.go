@@ -3,9 +3,7 @@ package markdown
 import (
 	"bytes"
 	"fmt"
-	stdcolor "image/color"
 	"io"
-	"math"
 	"net/http"
 	"os"
 	"strings"
@@ -17,7 +15,6 @@ import (
 	"github.com/alecthomas/chroma/formatters"
 	"github.com/alecthomas/chroma/lexers"
 	"github.com/alecthomas/chroma/styles"
-	"github.com/eliukblau/pixterm/pkg/ansimage"
 	"github.com/fatih/color"
 	md "github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/ast"
@@ -99,11 +96,6 @@ type renderer struct {
 	lineWidth int
 	// constant left padding to apply
 	leftPad int
-
-	// Dithering mode for ansimage
-	// Default is fine directly through a terminal
-	// DitheringWithBlocks is recommended if a terminal UI library is used
-	imageDithering ansimage.DitheringMode
 
 	// all the custom left paddings, without the fixed space from leftPad
 	padAccumulator []string
@@ -885,33 +877,7 @@ func (r *renderer) renderImage(dest string, title string, lineWidth int) (result
 	dest = strings.ReplaceAll(dest, "\n", "")
 	dest = strings.TrimSpace(dest)
 
-	fallback := func() (string, bool) {
-		return fmt.Sprintf("![%s](%s)", title, Blue(dest)), false
-	}
-
-	reader, err := imageFromDestination(dest)
-	if err != nil {
-		return fallback()
-	}
-
-	x := lineWidth
-
-	if r.imageDithering == ansimage.DitheringWithChars || r.imageDithering == ansimage.DitheringWithBlocks {
-		// not sure why this is needed by ansimage
-		// x *= 4
-	}
-
-	img, err := ansimage.NewScaledFromReader(reader, math.MaxInt32, x,
-		stdcolor.Black, ansimage.ScaleModeFit, r.imageDithering)
-
-	if err != nil {
-		return fallback()
-	}
-
-	if title != "" {
-		return fmt.Sprintf("%s%s: %s", img.Render(), title, Blue(dest)), true
-	}
-	return fmt.Sprintf("%s%s", img.Render(), Blue(dest)), true
+	return fmt.Sprintf("![%s](%s)", title, Blue(dest)), false
 }
 
 func imageFromDestination(dest string) (io.ReadCloser, error) {
